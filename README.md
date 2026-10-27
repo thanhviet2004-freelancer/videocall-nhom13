@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # VideoCall Nhóm 13
 
 Website gọi video thật bằng React + Vite, Firebase Authentication (Google/GitHub), Node.js/Express và LiveKit Cloud.
@@ -90,3 +91,6 @@ Mở `http://localhost:5173`.
 - Nếu GitHub login lỗi, kiểm tra callback URL Firebase trong GitHub OAuth App.
 - Nếu camera không chạy, cho phép quyền camera/micro và dùng Chrome/Edge mới.
 - Render free service có thể ngủ khi không hoạt động và mất vài chục giây để khởi động lại.
+=======
+# videocall-nhom13
+>>>>>>> aeccea3f851710f134f2cf911723ea4a6253a109
