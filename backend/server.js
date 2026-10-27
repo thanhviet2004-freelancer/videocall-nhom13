@@ -66,11 +66,6 @@ const serviceAccount = JSON.parse(
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
-  }
-} catch (error) {
-  console.error('Firebase Admin initialization failed:', error.message);
-  process.exit(1);
-}
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
