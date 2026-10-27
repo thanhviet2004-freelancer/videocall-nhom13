@@ -27,9 +27,37 @@ app.use(express.json({ limit: '32kb' }));
 
 try {
   if (!admin.apps.length) {
-    const serviceAccountPath = fileURLToPath(
-  new URL('./firebase-service-account.json', import.meta.url)
-);
+    let serviceAccount;
+
+    if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+      // Render: đọc thông tin Firebase từ Environment Variables
+      serviceAccount = JSON.parse(
+        process.env.FIREBASE_SERVICE_ACCOUNT_JSON
+      );
+    } else {
+      // Local: đọc file JSON trên máy tính
+      const serviceAccountPath = fileURLToPath(
+        new URL('./firebase-service-account.json', import.meta.url)
+      );
+
+      const { readFileSync } = await import('node:fs');
+
+      serviceAccount = JSON.parse(
+        readFileSync(serviceAccountPath, 'utf8')
+      );
+    }
+
+    // Khởi tạo Firebase Admin
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount)
+    });
+
+    console.log('Firebase Admin initialized successfully');
+  }
+} catch (error) {
+  console.error('Firebase Admin initialization failed:', error.message);
+  process.exit(1);
+}
 
 const serviceAccount = JSON.parse(
   readFileSync(serviceAccountPath, 'utf8')
