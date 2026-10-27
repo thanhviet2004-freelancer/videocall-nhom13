@@ -59,14 +59,6 @@ try {
   process.exit(1);
 }
 
-const serviceAccount = JSON.parse(
-  readFileSync(serviceAccountPath, 'utf8')
-);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
-
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
 app.post('/api/token', async (req, res) => {
